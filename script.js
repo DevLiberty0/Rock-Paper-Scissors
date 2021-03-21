@@ -1,6 +1,7 @@
 const symbol = [ "Rock", "Paper", "Scissors" ]; //tablica symboli do gry
 let p1 = 0;
 let p2 = 0;
+let zgoda = true;
 
 function cpuPlay () { //funkcja zwracajaca losowa liczbe z zakresu 0-2
     let a = Math.floor(Math.random() * 3);
@@ -48,8 +49,22 @@ function round (first, second) {
     } 
 }
 
-while (p1 < 5 && p2 < 5) {
-    let playerChoice = prompt("0 - Rock, 1 - Paper, 2 - Scissors");
-    round( symbol[playerChoice], cpuPlay() );
-    console.log("Wynik: " + p1 + " : " + p2);
+function game () {
+    p1 = 0;
+    p2 = 0;
+    while (p1 < 5 && p2 < 5) {
+        let playerChoice = prompt("0 - Rock, 1 - Paper, 2 - Scissors");
+        round( symbol[playerChoice], cpuPlay() );
+        console.log("Wynik: " + p1 + " : " + p2);
+    }
+
+    console.log( (p1 > p2) ? "You won!!!" : "You lose..." );
 }
+
+alert("Click OK to start new game");
+do {
+    game();
+} while (confirm("Play again?"));
+
+alert("Have a nice day.");
+    
