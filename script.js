@@ -1,70 +1,44 @@
-const symbol = [ "Rock", "Paper", "Scissors" ]; //tablica symboli do gry
-let p1 = 0;
-let p2 = 0;
-let zgoda = true;
+const symbol = [ "Rock", "Paper", "Scissors" ];
+const tablica = document.querySelector('#tablica');
+const button = document.querySelectorAll('.button');
 
-function cpuPlay () { //funkcja zwracajaca losowa liczbe z zakresu 0-2
+function cpuPlay () {
     let a = Math.floor(Math.random() * 3);
     return symbol[a];
 }   
 
 function round (first, second) {
-    if (first == second) {
-        console.log("Draw.");
-        return; 
-    }
+    if (first == second) return "Draw."; 
     switch (first) {
         case "Rock":
-        if (second == "Paper") {
-            p2++;
-            console.log("You lose. Paper beats Rock.");
-            return;
-        } else {
-            p1++;
-            console.log("You win. Rock beats Scissors.");
-            return;
-        }
+        if(second == "Paper") return "You lose. Paper beats Rock.";
+        return "You win. Rock beats Scissors.";
 
         case "Paper":
-        if (second == "Scissors") {
-            p2++;
-            console.log("You lose. Scissors beats Paper.");
-            return;
-        } else {
-            p1++;
-            console.log("You win. Paper beats Rock.");
-            return;
-        }
+        if (second == "Scissors") return "You lose. Scissors beats Paper.";
+        return "You win. Paper beats Rock.";
 
         case "Scissors":
-        if (second == "Rock") {
-            p2++;
-            console.log("You lose. Rock beats Scissors.");
-            return;
-        } else {
-            p1++;
-            console.log("You win. Scissors beats Paper.");
-            return;
-        }
+        if (second == "Rock") return "You lose. Rock beats Scissors.";
+        return "You win. Scissors beats Paper.";
     } 
 }
 
-function game () {
-    p1 = 0;
-    p2 = 0;
-    while (p1 < 5 && p2 < 5) {
-        let playerChoice = prompt("0 - Rock, 1 - Paper, 2 - Scissors");
-        round( symbol[playerChoice], cpuPlay() );
-        console.log("Wynik: " + p1 + " : " + p2);
-    }
-
-    console.log( (p1 > p2) ? "You won!!!" : "You lose..." );
+function removeTransition(e) {
+    if(e.propertyName !== 'box-shadow' && e.propertyName !== 'transform') return;
+    this.classList.remove('buttonAnim');
 }
 
-alert("Click OK to start new game");
-do {
-    game();
-} while (confirm("Play again?"));
-
-alert("Have a nice day.");
+function playRound(e) {
+    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    key.classList.add('buttonAnim');
     
+    const cpu = cpuPlay();
+    tablica.textContent = key.id + " vs " + cpu + "\r\n" + round(key.id, cpu);
+}
+
+const keys = document.querySelectorAll('.button');
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+window.addEventListener('keydown', playRound);
+

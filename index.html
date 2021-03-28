@@ -5,7 +5,53 @@
     <meta charset="UTF-8">
    <!--  <link rel="stylesheet" href="style.css" type="text/css"> -->
 </head>
+<style>
+    .container {
+        margin: auto;
+        margin-top: 5vh;
+        margin-bottom: 5vh;
+        width: 80%;
+        height: 30vh;
+        display: flex;
+        flex-direction: row;        
+        justify-content: space-between;
+    } 
+    .box {
+        margin: auto;
+        height: 30vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        box-shadow: 5px 5px 10px 3px gray;
+    }
+    .button {
+        width: 25%;
+        height: 100%;
+        transition: box-shadow 0.2s , transform 0.2s;
+    }
+    .buttonAnim {
+        box-shadow: none;
+        transform: scale(0.98);
+    }
+    p {
+        text-align: center;
+        font-size: 40px;
+        font-family: 'Helvetica';
+        font-weight: 900;
+        white-space: pre;
+    }
+</style>
 <body>
+    <div class="container">
+        <div class="button box" data-key="65" id="Rock"><p>Rock<br>[A]</p></div>
+        <div class="button box" data-key="83" id="Paper"><p>Paper<br>[S]</p></div>
+        <div class="button box" data-key="68" id="Scissors"><p>Scissors<br>[D]</p></div>
+    </div>
+    <div class="box" id="wynik">
+        <p id="tablica"></p>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
